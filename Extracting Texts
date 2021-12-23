@@ -1,0 +1,56 @@
+/////Section 1: Character Ranges:
+
+//Transform > Extract
+• The commands found in the Transform > Extract and Add
+Column > Extract sub-menus are designed to extract
+substrings from a single piece of text.
+• The commands in the Transform Tab will modify the
+selected column, the Add Column equivalent will retain the
+original column and extract text into a new column.
+
+//First Characters
+• Extract > First Characters returns the specified number of
+characters from the start of a string and is equivalent to
+Microsoft Excel's LEFT function.
+
+//Last Characters
+• The command Extract > Last Characters returns the specified
+number of characters from the end of a string and is
+equivalent to Excel's RIGHT function.
+
+//Range
+• The command Extract > Range returns the specified number
+of characters from the middle of a string and is equivalent to
+Excel's MID function.
+• When specifying the starting index, remember that, in the M
+language, the first character position has an index of zero, not
+one.
+
+
+
+/////Section 2: Between Delimiters:
+
+//Text Between Delimiters
+• The command Extract > Text Between Delimiters returns
+the text between the two specified delimiters.
+• The Text Between Delimiters dialog allows you to specify
+different start and end delimiters.
+Advanced options allow you to specify whether to scan the
+text from the start or end and which occurrence of the two
+delimiters to target.
+
+
+
+/////Section 3: Before Delimiter:
+
+//Text Before Delimiter
+• The command Extract > Text Before Delimiter returns the
+text before the specified delimiter.
+• As we can see in this example, when using the Text Before,
+After and Between delimiters commands, the delimiter can
+contain multiple characters.
+
+//Replace Values
+• The Replace Values command, which works in a similar way
+to Find and Replace, can be used to iron out minor
+discrepancies in the text being used as the delimiter.
