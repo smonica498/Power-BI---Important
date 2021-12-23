@@ -29,10 +29,78 @@ Click on Slicer (Filter based on location for example)
 So this way we get the the page for a particular location for example
 and then delete the slicer
 
+
+
 //Top N Customers
 Click on Table Viz
 Values: Customer Name, Revenue, Units
 Format: Title - Top 6 Customers
 In Filters pane, under Filters on this visual: Customer Name. Filter Type: Top N, Show Items: Top 6, By value: Revenue
 Click on Apply Button
+
+
+
+//The TREE MAP Visual
+Click on Tree Map viz
+Group: Product Range
+Values: Revenue
+Format Viz: Data labels, Data Colors - has separate color range for diff. Advanced can do the same color with varinats in shade based on values
+
+Click on Bar chart. Values: Reveneue, Axis: Product
+Format: Switch off x axis, Data labels - Display units: 1000s, Value decimal places: 1, Position: Inside end, Overflow text: ON
+
+
+
+//Config Visual Interactions
+Case 1: We do not want this KPI to change with any filters/interactions with other viz
+For example, 6 year trend viz needs to stay the same during interaction with other filters.
+So, we select a viz eg. Bar chart, Go to Format -> Edit Interactions -> Under that 6 year trend viz click on the None button
+Case 2: Only a few fields can filter a particular KPI
+For example, Target varince needs to stay the same when we click on a particular value on a Table of Account Handler
+So, we select that Table of Account Handler, Go to Format -> Edit Interactions -> Under that 6 year trend viz and Revenue KPI click on the None button
+Case 3: All viz interactions
+
+If we want to show the viz's interacted vales and not the highlighted vales for the particualr seleted field,
+File -> Option & Settings -> Options -> Current File -> Report Settings -> Under Visual options select Change default visual interaction from cross highlighting to cross filtering
+When we want the intercations to Highlight,
+Just beside the None button, there shoudl be a Highlight button on the left of None
+
+
+
+//Preparing a Drill-Through Page:
+On the Main Branch Overview Page, Right click on a particular field on a particular viz -> Drill through -> Branch Focus
+This will show the filters of the selected Field and take to another Branch Focus page
+
+To create this:
+In Branch Focus page, in viz pane, Add Drill-through fields under Drill through
+Swithc of Keep all filters (if not required)
+Power BI automatically creates a Back button on the top left of the page
+Right click on Branch Focus page and then click on Hide Page
+
+
+
+//Creating a drill-through button:
+Under Main Branch Overview Page
+Click on Intsert Tab -> Buttons -> Blank
+Format: Button Text: Click Here to Drill-through to slected Branch; Action: ON, Type: Drill-through, Destination: Branch Focus page, Enabled Tooltip
+
+
+
+//Configuring a Tooltip page:
+Create a new page: Branch Tooltip (Right click and Hide)
+Click on Table viz
+Values: Account Handler, Revenue, Units Sold
+Go to View Tab -> Page View -> Actual Size
+In Filters pane, Account Handler filed - Filter Type: Top N, Show Items: Top 3, By Value: Revenue. then click on Apply Filter
+Format: Title: Top 3 (Drill-through for more)
+....
+General: Width: 235, Height: 105
+Move that viz to the top left side
+Now make sure nothing is slected
+In viz pane, Under page information, Switch on Tool tip, Page Size: Tooltip (This changes the width to 320, Height to 240 so prefer to change to custom and manually change the width to 235 and height to 105 matching the content)
+Now, Under View Tab -> Page View -> Actual Size
+Now under viz pane, make sure Tooltip is ON and drag branch under Tooltip fields
+Now, In the main Branch Overview page, select all the viz that contains Branch and we wanna see the tooltip while hovering over the brances,
+Go to Format, Click on Tooltip. Type: Report Page, Page: Branch Tooltip 
+
 
