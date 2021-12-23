@@ -78,6 +78,7 @@ Home Tab -> New Column
 Year = YEAR('Date Table'[Date])
 Quarter = QUARTER('Date Table'[Date])
 Month = FORMAT(MONTH('Date Table'[Date]), "MMMM")
+Month Short = FORMAT(MONTH('Date Table'[Date]), "MMM")
 Month Sort = MONTH('Date Table'[Date])
 Highlight Month Column then Go to Column Tools -> Sort by Column: Month Sort
 Day = DAY('Date Table'[Date])
