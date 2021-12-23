@@ -1,0 +1,100 @@
+/////Section 1: Split by Delimiter
+
+//Identifying Text Issues
+• When looking to clean up a text column, it is always useful
+to know what you are looking for; and one way of doing
+this is to copy the column into Microsoft Word and review
+the invisible characters.
+• Right-click the text column and Choose “Copy”.
+• Once the data is pasted into Microsoft Word, activate the
+Show Hidden Characters feature to identify the invisible
+characters.
+• A dot represents a space and the arrow symbol represents
+a Tab character.
+
+
+//Trim and Clean
+• The Trim command removes leading and trailing spaces from a
+text column.
+• The Clean command removes white space characters like tabs
+and returns.
+• To use these commands, either:
+• Right-click the text column and choose Transform > Format >
+Trim/Clean
+• In the Ribbon, click Transform > Format > Trim/Clean.
+
+
+//Split Column by Delimiter
+• The Split Column by Delimiter command creates new columns
+by splitting text entries wherever the specified delimiter
+occurs.
+• When using the Split Column by Delimiter command,
+activating the option Left-most delimiter ensures that only
+two columns will be created.
+
+
+
+
+/////Section 2: Character Transition
+
+//Split by Character Transition
+• Power Query contains four useful commands for splitting
+columns according to a transition from one kind of
+character to another, i.e., at the point where a key attribute
+of the characters changes:
+• By Lowercase to uppercase
+• By Uppercase to lowercase
+• By Digit to non-digit
+• By Non-digit to digit
+• For example, if a variable number of digits is followed by
+text, we can use the command Split Column > Digit to Non-
+Digit to separate the characters following the leading digits
+into a new column.
+
+
+
+/////Section 3: Combining Columns:
+
+//Merge Columns
+• The merge columns command combines the selected
+columns into a single column using the specified
+“Separator”.
+• The merge columns command combines the selected
+columns into a single column using the specified
+“Separator”.
+• When combining columns using Transform > Merge
+Columns, the order in which you select the columns
+determines the order in which the columns will be merged.
+• The Power Query Merge Columns command can be found
+on both the Transform and Add Column Tabs of the Ribbon.
+• Using Transform > Merge Columns replaces the merge
+columns, whereas Add Columns > Merge Columns
+preserves the existing columns.
+• Using Right-click > Merge Columns is equivalent to
+Transform > Merge Columns.
+
+//Merge Columns & Query Folding
+• When transforming queries which connect to database
+servers, such as SQL Server and Oracle, Merge Columns is
+one of those commands which cannot be query folded (i.e.,
+it cannot be converted into a native SQL command to be
+executed by the server).
+
+//Add Column > Custom Column
+• Unlike Merge Columns, using the more basic command Add
+Column > Custom Column to create a concatenated column,
+generates a step which will be query-folded.
+• The Add Column > Custom Column command displays a
+dialog into which you can enter M language code.
+• To combine columns, simply enter the names of the columns
+using the “&” character for concatenation.
+• The Custom Column dialog is fairly user-friendly. Doubleclicking
+a column in the “Available columns” list inserts the
+M code reference to that column.
+
+
+//Data Type
+• Using the Merge Columns command always generates a text
+column. However, when using Add Column > Custom column,
+you must manually specify the data type of the new column.
+
