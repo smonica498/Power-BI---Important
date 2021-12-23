@@ -14,3 +14,25 @@ First button is Drill Up (one up arrow)
 Second button is Drill Down (one down arrow)
 Third button is Go to the next level in the hierarchy (two down arrow)
 Forth button is Expand all down one level in hierarchy (Looks like Decision Tree)
+
+If do not want 1 KPI to interact with other visuals then,
+Click on the visual eg. Bar chart, Go to Format Tab -> Edit Interactions -> Click on None button just beneath that KPI viz
+
+
+
+//Using the Table Visual
+Click on Table Viz
+Under Values:
+Select Account Handler
+Undeer Measures select Revenue, Total Units Sold, Maximum Order Value
+Click on Slicer (Filter based on location for example)
+So this way we get the the page for a particular location for example
+and then delete the slicer
+
+//Top N Customers
+Click on Table Viz
+Values: Customer Name, Revenue, Units
+Format: Title - Top 6 Customers
+In Filters pane, under Filters on this visual: Customer Name. Filter Type: Top N, Show Items: Top 6, By value: Revenue
+Click on Apply Button
+
