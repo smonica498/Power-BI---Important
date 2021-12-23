@@ -1,0 +1,15 @@
+In Power Query Editor
+New Source -> Blank Query
+
+= DateTime.LocalNow()
+
+Convery to Table
+Rename Column as DateTime
+
+Duplicate DateTime column 
+Change Type as Date
+Rename as Date Refreshed
+
+Duplicate DateTime column again
+Change Type as Time
+Rename as Time Refreshed
