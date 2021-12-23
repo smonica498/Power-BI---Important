@@ -1,0 +1,151 @@
+/////Section 1: Removing Rows:
+
+//Removing Metadata:
+• One common attribute of data which is essentially a report
+is rows of metadata preceding the actual data; for example,
+the name, date and author of the report.
+• Remove Rows > Remove Top Rows can be used to eliminate
+these non-data rows.
+
+
+//Repaeting Rows:
+• If data contains analysis rows embedded within the data,
+such as sub-totals, Remove Rows > Remove Alternate Rows
+can be used to remove these embedded rows.
+• Specify the first row to remove, the number of rows to
+remove and the number of rows to keep.
+
+
+//Filtering our Rows:
+• When rows need to be removed, filtering is often an
+option.
+• Filtering is useful when the row entries are known in
+advance.
+
+
+
+/////Section 2: Fill Down:
+
+//Embedded Sub-Headings:
+• Report data sometimes contains embedded headings.
+• This means that some columns contain blanks instead of
+data labels, preventing accurate data analysis.
+
+//Fill Down:
+• The Fill Down
+command will copy
+each sub-heading down
+into the blank rows
+below; but it will never
+overwrite an entry,
+since the command
+only fills empty rows.
+
+
+//Blank versus Null:
+• However, the Fill Down command will only replace null
+values, and Power BI does not treat blank entries as null.
+
+//Replace Values:
+• If rows are empty, prior to using Fill Down, we can use
+Replace Values to insert nulls instead of blanks; entering
+nothing in “Value to find”, and lowercase “null” in “Replace
+with”.
+
+//Fill Down now Works:
+• Once the rows below the embedded sub-headings contain
+null values, Fill Down will produce the correct result.
+
+
+
+
+/////Section 3: unpivot Columns:
+
+
+//Pivoted Data
+• One of the attributes which reporting data sometimes
+contains is pivoting, where the elements within a category
+have been separated out into columns like a pivot table.
+• Pivoted data is difficult to analyze, since it has already been
+separated into preset categories.
+
+
+//Unpivot Columns
+• The Unpivot Columns command transposes the pivoted
+columns into two new columns called “Attribute” and “Value”.
+• The “Attribute” column contains the original column headings,
+while the “Value” column contains the entries which were
+underneath each of those headings.
+
+
+//Table.UnpivotOtherColumns
+• The M syntax generated when the Unpivot Columns
+command is used is Table.UnpivotOtherColumns, a function
+which references the columns not being unpivoted.
+• If you wish to generated the Table.UnpivotColumns
+command, which explicitly references the columns to be
+unpivoted, use the command Unpivot Only Selected
+Columns.
+
+
+
+
+/////Section 4: Report Cteation:
+
+
+//Background Image Fit:
+• When importing a background image, you can resize the
+image to fit the Power BI canvas precisely by choosing Fit
+from the Image Fit dropdown in the Format > Background
+settings.
+
+//DAX Measures:
+Unlike calculated columns, which produce a result for each
+row in a table, DAX measures display a result only when
+added to one of the fields in a visual.
+
+//Measure Syntax:
+• The syntax for creating a measure is:
+Name of Measure = Formula.
+• Pressing Shift-Enter to split your formulas onto separate lines
+makes them easier to read.
+• Pressing Shift-Plus or Shift-Minus increases or decreases the
+font size in the formula bar.
+Rating Stars = 
+REPT(UNICHAR(9733), AVERAGE(Response[Rating])) &
+REPT(UNICHAR(9734), 10 - AVERAGE(Responses[Rating]))
+
+
+//REPT Function
+The DAX REPT function generates the specified number of
+instances of a text string.
+• The syntax of the REPT function is:
+REPT(<text>, <num_times>)
+where <text> is the text to be repeated, either a literal string
+or a text function
+and <num_times> is the number of times you wish to repeat
+the string.
+
+
+//UNICHAR Function:
+• The DAX UNICHAR function returns the Unicode character
+referenced by specified number.
+• The syntax of the function is:
+UNICHAR(number)
+• The single argument (number) is the Unicode number that
+represents the character.
+
+
+//Filled and Unfilled Stars:
+• UNICHAR(9733) returns a filled star character.
+• UNICHAR(9734) returns an unfilled star.
+• BTW, to look up or search for Unicode characters, visit the
+website unicode-table.com.
+
+
+//Table Column Format:
+• The text font and background colours used in the table visual
+can be changed on an individual column basis.
+• In the Field Formatting section of the Format pane, choose a
+column from the dropdown, then set the Font and
+Background colours as required.
