@@ -1,0 +1,5 @@
+//Find Difference Between 2 dates:
+Number of days till today from start of FY22 = DATEDIFF(MIN( Fiscal_Calendar[DAY] ), MAX('Data Refresh'[Date Refreshed]), DAY )
+
+//Average 
+Avg Item Per Day = SUM('Table'[Total Item])/('Table'[Number of days till today from start of FY22])
