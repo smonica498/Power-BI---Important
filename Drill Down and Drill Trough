@@ -1,0 +1,16 @@
+//Creating New Pages:
+Main Page is renamed as Branch Overview
+Right Click on Branch Overview -> Duplicate Page
+OR
+Go to Insert Tab -> New Page -> Duplicate Page
+
+
+//Applying Drill-Down to a visual
+For example,
+Bar char1: Revenue vs Date Hierarchy 
+Bar chart2: Revenue vs Year, Quarter, Month, Day
+When selecting any visual for example Bar chart2, Go to Data/Drill -> Apply Drill down filters to -> Entire Page/ Selected Visual
+First button is Drill Up (one up arrow)
+Second button is Drill Down (one down arrow)
+Third button is Go to the next level in the hierarchy (two down arrow)
+Forth button is Expand all down one level in hierarchy (Looks like Decision Tree)
