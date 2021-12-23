@@ -81,3 +81,16 @@ Month = FORMAT(MONTH('Date Table'[Date]), "MMMM")
 Month Sort = MONTH('Date Table'[Date])
 Highlight Month Column then Go to Column Tools -> Sort by Column: Month Sort
 Day = DAY('Date Table'[Date])
+
+
+
+//Mark as Date Table
+In Viz view
+Click on Date Table 
+Go to Table Tools -> Mark as date table -> Mark as date table
+Mark as date table section will open. Under Date Column select the Date which is the date column
+Click OK
+
+
+
+
