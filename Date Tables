@@ -1,0 +1,19 @@
+//Disabling Auto Date/Time
+Files -> Options -> Global -> Data Load -> Deactivate Auto date/time for new files
+OR 
+File -> Options -> Current File -> Data Load -> Decativate Auto date/time under Time Intelligence section
+
+
+
+
+//Date Table using Power Query Editor:
+Find earliest and latest date in Fact Table as numbers (123 FirstDate, 123 LastDate) -> Create List of numbers between these 2 numbers -> Find earliest and latest date in fact table as numbers -> Add aditional date columns to date table
+Step 1: Right click on the Fact table where the dates are given and then click on Reference so any changes in the Refrence will be refected to that Fact table
+Right click on Refrence Table and then Click on Enable Load as we do not want it to load 
+Rename Refrence table as Earliest Date
+Now Remove other columns by clicking on the Date column
+Filter Date column - Date Filters -> Is Earliest
+
+
+
+
