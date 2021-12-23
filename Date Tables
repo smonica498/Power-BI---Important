@@ -12,7 +12,55 @@ Step 1: Right click on the Fact table where the dates are given and then click o
 Right click on Refrence Table and then Click on Enable Load as we do not want it to load 
 Rename Refrence table as Earliest Date
 Now Remove other columns by clicking on the Date column
-Filter Date column - Date Filters -> Is Earliest
+Filter Date column: Date Filters -> Is Earliest
+Add column: FirstDate = #date(Date.Year([Date]), 1, 1) //This will ensure that we have complete date in Date Table which is the earliest year with 1 jan
+Remove Date Column
+Change Type of FirstFDate column to Number
+Go to Transform Tab -> Statistics -> Minimum
+Step 2: Duplicate EarliestDate Table and rename to LatestDate
+Change Applied Steps: LatestDate = #date(Date.Year([Date]), 12, 31) //This will ensure that we have complete date in Date Table which is the latest year with 31 Dec
+Delete the last step
+Go to Transform Tab -> Statistics -> Maximum
+Step 3: To create the date table
+Go to Home Tab -> New SOurce -> Blank Query
+Rename Date Table
+Go to Advanced Editor:
+let 
+ Source = List.Numbers(EarliestDate, LatestDate - EarliestDate + 1)
+in
+ Source
+Clikc on Done
+Right on List and click on To Table
+Change Data Type to Date
+Rename first column as Date
+Add Column: Year = Date.Year([Date]) 
+Add Column: Quarter = Date.QuarterOfYear([Date])
+Add Column: Month = Date.MonthName([Date])
+Add Column: Month Sort = Date.Moth([Date])
+Add Column: Day = Date.Day([Date])
+Chnage Data Types: Year - 123, Quarter - 123, Month - ABC, Month Sort - 123, Day - 123
+
+
+//Using an external Date Table
+Date Table in Excel contains columns Date, Year, Quarter, Month, Month Sort, Day
+Step 1: Import External Date Table
+Step 2: Find Earliest and latest years in Fact Table
+a) Earliest Year
+Right click on the Fact table where the dates are given and then click on Reference so any changes in the Refrence will be refected to that Fact table
+Right click on Refrence Table and then Click on Enable Load as we do not want it to load (if)
+Rename Refrence table as Earliest Date
+Now Remove other columns by clicking on the Date column
+We just want the year component so Right click on Date Column -> Transform -> Year -> Year
+Go to Transform Tab -> Statistics -> Minimum
+b) Latest Year
+Duplicate the Earliest Year and rename as Latest Year
+Remove the last step of Calculating Minimum
+Go to Transform Tab -> Statistics -> Maximum
+Step 3: Filter year column using earliest and latest years
+Go to External Date Table
+Filter Year Column: Number Filters -> Between -> 2021 and 2022 //Note: we cannot write in there the Earliest Year and Latest year so temporarilty write 2021 and 2022
+Now on the M Code formula bar or Advanced Editor
+Replace 2021 with #''Earliest Year'' and 2022 with #''Latest Year''
 
 
 
