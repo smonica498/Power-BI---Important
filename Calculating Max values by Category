@@ -1,0 +1,26 @@
+In Calculated Columns:
+
+max value =
+VAR maxValue = 
+CALCULATE(
+ MAX(ALARMTABLE[Alarms]),
+ ALLEXCEPT(ALARMTABLE, ALARMTABLE[State]))
+return
+IF([Alarms] = maxValue, "MAX") 
+
+
+
+
+max value conditional formatting =
+// conditional format the max value of the series by year
+VAR MaxValue = MAXX(ALLSELECTED('ALARMTABLE'[Year]),[#ALARMTABLE])
+
+return
+IF([#ALARMTABLE]=maxValue, "#FF6600", "#73BCB2")
+
+Once this is done, dependng on the charts for example Bar chart, Go to format -> Data Colors -> fx -> Format by: Field value, Based on field: max value conditional formatting -> Okay
+
+
+
+Resource Reference:
+https://www.youtube.com/watch?v=8KaMj2DFpWg
