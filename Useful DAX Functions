@@ -3,3 +3,7 @@ Number of days till today from start of FY22 = DATEDIFF(MIN( Fiscal_Calendar[DAY
 
 //Average 
 Avg Item Per Day = SUM('Table'[Total Item])/('Table'[Number of days till today from start of FY22])
+
+//Maximum
+Max trips =
+MAXX(ALL(TABLE), [Trips])
