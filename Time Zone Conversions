@@ -1,0 +1,16 @@
+if Text.End(Number.ToText([EST Offset]),2)=".5" 
+
+then
+  if [EST Offset] < 0 
+  then [InvClosed Raw]- #duration(0,Number.Abs(Single.From([EST Offset]+0.5)),30,0)
+  else [InvClosed Raw]+ #duration(0,Number.Abs(Single.From([EST Offset]-0.5)),30,0) 
+
+else 
+  if [EST Offset] < 0 
+  then [InvClosed Raw]- #duration(0,Number.Abs(Single.From([EST Offset])),0,0)
+  else [InvClosed Raw]+ #duration(0,Number.Abs(Single.From([EST Offset])),0,0))
+
+
+#duration(days as number, hours as number, minutes as number, seconds as number) as duration
+
+Duration.FromText(text as nullable text) as nullable duration
