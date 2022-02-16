@@ -14,3 +14,21 @@ else
 #duration(days as number, hours as number, minutes as number, seconds as number) as duration
 
 Duration.FromText(text as nullable text) as nullable duration
+
+
+
+https://docs.microsoft.com/en-us/powerquery-m/text-end
+
+INCIDNET DATE/TIME TIMEZONE CONVERSION FROM EST TO ORIGINAL TIME USINGN EST OFFSET:
+
+if Text.End(Number.ToText([EST Offset]),2)=".5" 
+
+then
+  if [EST Offset] < 0 
+  then [#"Incident Date/Time OLD"]- #duration(0,Number.Abs(Single.From([EST Offset]+0.5)),30,0)
+  else [#"Incident Date/Time OLD"]+ #duration(0,Number.Abs(Single.From([EST Offset]-0.5)),30,0) 
+
+else 
+  if [EST Offset] < 0 
+  then [#"Incident Date/Time OLD"]- #duration(0,Number.Abs(Single.From([EST Offset])),0,0)
+  else [#"Incident Date/Time OLD"]+ #duration(0,Number.Abs(Single.From([EST Offset])),0,0)
