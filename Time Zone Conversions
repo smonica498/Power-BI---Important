@@ -40,4 +40,10 @@ if if-condition then true-expression else false-expression
 Text.End(text as nullable text, count as number) as nullable text     #Returns a text value that is the last count characters of the text value text.
 # For example, Text.End("Hello, World", 5) -> "World" i.e. Get the last 5 characters of the text "Hello, World".
 
+# #duration(days as number, hours as number, minutes as number, seconds as number) as duration  #Creates a duration value from numbers representing days, hours, minutes, and (fractional) seconds.
 
+# Number.Abs(number as nullable number) as nullable number   # Returns the absolute value of number. If number is null, Number.Abs returns null.
+For example, Number.Abs(-3) -> 3
+
+# Single.From(value as any, optional culture as nullable text) as nullable number  # Returns a Single number value from the given value. If the given value is null, Single.From returns null. If the given value is number within the range of Single, value is returned, otherwise an error is returned. If the given value is of any other type, see Number.FromText for converting it to number value, then the previous statement about converting number value to Single number value applies. An optional culture may also be provided (for example, "en-US").
+For example, Single.From("1.5") -> 1.5
