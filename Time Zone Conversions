@@ -32,3 +32,12 @@ else
   if [EST Offset] < 0 
   then [#"Incident Date/Time OLD"]- #duration(0,Number.Abs(Single.From([EST Offset])),0,0)
   else [#"Incident Date/Time OLD"]+ #duration(0,Number.Abs(Single.From([EST Offset])),0,0)
+
+
+M Code Syntax:
+if if-condition then true-expression else false-expression
+
+Text.End(text as nullable text, count as number) as nullable text     #Returns a text value that is the last count characters of the text value text.
+# For example, Text.End("Hello, World", 5) -> "World" i.e. Get the last 5 characters of the text "Hello, World".
+
+
