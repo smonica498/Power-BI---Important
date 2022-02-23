@@ -1,0 +1,53 @@
+Power Query: https://www.youtube.com/watch?v=M1zquwmpnZE
+
+Step 1:
+Local Time Zone -> UTC 
+
+We first have a column in my original Sweden time zone which is 'Original my Time' its in Text format. Its 2 hours away from UTC. Sweden Time is 2 hrs ahead of UTC
+Add new custom column
+Timezone DateTime format
+=DateTime.From([Original my Time])
+
+We converted to Date Time format. This is UTC + 2 hrs
+
+
+Step 2:
+Add New Custom column or change the prev step.
+
+Timezone UTC
+=DateTime.From([Original my Time]) + #duration(0, -2, 0, 0)
+
+Now this is in UTC Time i.e. eg. 07-Jun-19 7:00:00 PM
+
+
+Step 3:
+Add new Custom Column
+DateTimezone Format
+= DateTime.AddZone([Timezone UTC)], 0)
+
+This converted to DateTime Zone format i.e. eg. 07-Jun-19 7:00:00 PM +00:00
+
+
+Step 4:
+Local DateTimeZone
+= DateTimeZone.ToLocal([DateTimezone Format])
+
+This is going to convert UTC value to my local date timezone i.e. eg. 07-Jun-19 9:00:00 PM +02:00
+
+
+Step 5:
+Local DateTime
+= DateTimeZone.RemoveZone([Local DateTimeZone])
+
+This is goign to convert Local DateTimeZone to Local DateTime i.e. eg. 07-Jun-19 9:00:00 PM
+
+
+
+=======================================================================================================
+
+Everything in 1 Formula:
+Add new Custom Column
+
+Local DateTime
+= DateTimeZone.RemoveZone(DateTimeZone.ToLocal(DateTime.AddZone([Timezone UTC], 0)))
+
