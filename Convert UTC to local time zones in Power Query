@@ -51,3 +51,22 @@ Add new Custom Column
 Local DateTime
 = DateTimeZone.RemoveZone(DateTimeZone.ToLocal(DateTime.AddZone([Timezone UTC], 0)))
 
+
+
+========================================================================================================
+
+Date & Time
+if [UTC Offset] = 8
+then DateTime.From([#"Date & Time UTC"]) + #duration(0, -8, 0, 0)
+else if [UTC Offset] = 7
+then DateTime.From([#"Date & Time UTC"]) + #duration(0, -7, 0, 0)
+else if [UTC Offset] = 6
+then DateTime.From([#"Date & Time UTC"]) + #duration(0, -6, 0, 0)
+else if [UTC Offset] = 5
+then DateTime.From([#"Date & Time UTC"]) + #duration(0, -5, 0, 0)
+else if [UTC Offset] = 4
+then DateTime.From([#"Date & Time UTC"]) + #duration(0, -4, 0, 0)
+else if [UTC Offset] = 3.5
+then DateTime.From([#"Date & Time UTC"]) + #duration(0, -3.5, 0, 0)
+else
+DateTime.From([#"Date & Time UTC"]) + #duration(0, 0, 0, 0)
