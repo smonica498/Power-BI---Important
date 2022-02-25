@@ -7,3 +7,5 @@ Avg Item Per Day = SUM('Table'[Total Item])/('Table'[Number of days till today f
 //Maximum
 Max trips =
 MAXX(ALL(TABLE), [Trips])
+
+//
