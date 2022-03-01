@@ -1,0 +1,10 @@
+Mastering Power BI Bookmarks:
+https://www.youtube.com/watch?v=xCMqWEvSkAs
+
+Buttons, Bookmarks and Selections allow to develop an app-like experience
+
+View -> Bookmarks, Selection
+
+Keep Data unchecked when using bookmarks and buttons for navigation purposes
+
+You can also select whether each bookmark will apply Data properties, such as filters and slicers; Display properties, such as spotlight and its visibility; and Current page changes, which present the page that was visible when the bookmark was added. These capabilities are useful when you use bookmarks to switch between report views or selections of visuals, in which case you'd likely want to turn off data properties, so that filters aren't reset when users switch views by selecting a bookmark.
