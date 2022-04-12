@@ -1,0 +1,63 @@
+Power Query Editor:
+
+PST = [#"Date & Time UTC"] - #duration(0, 8, 0, 0)
+
+EST = [#"Date & Time UTC"] - #duration(0, 5, 0, 0)
+
+Local Date Time = DateTimeZone.RemoveZone(DateTimeZone.ToLocal(DateTime.AddZone([#"Date & Time UTC"], 0)))
+
+Store Date & Time =
+if [UTC Offset] = 8
+then DateTime.From([#"Date & Time UTC"]) - #duration(0, 8, 0, 0)
+else if [UTC Offset] = 7
+then DateTime.From([#"Date & Time UTC"]) - #duration(0, 7, 0, 0)
+else if [UTC Offset] = 6
+then DateTime.From([#"Date & Time UTC"]) - #duration(0, 6, 0, 0)
+else if [UTC Offset] = 5
+then DateTime.From([#"Date & Time UTC"]) - #duration(0, 5, 0, 0)
+else if [UTC Offset] = 4
+then DateTime.From([#"Date & Time UTC"]) - #duration(0, 4, 0, 0)
+else if [UTC Offset] = 3.5
+then DateTime.From([#"Date & Time UTC"]) - #duration(0, 3, 30, 0)
+else
+DateTime.From([#"Date & Time UTC"]) + #duration(0, 0, 0, 0)
+
+Incident Date/Time = 
+if [Time Zone] = "PST"
+then DateTime.From([#"Incident Date/Time UTC-0"]) + #duration(0, -8, 0, 0)
+else if [Time Zone] = "PDT"
+then DateTime.From([#"Incident Date/Time UTC-0"]) + #duration(0, -7, 0, 0)
+else if [Time Zone] = "MST"
+then DateTime.From([#"Incident Date/Time UTC-0"]) + #duration(0, -7, 0, 0)
+else if [Time Zone] = "MDT"
+then DateTime.From([#"Incident Date/Time UTC-0"]) + #duration(0, -6, 0, 0)
+else if [Time Zone] = "CST"
+then DateTime.From([#"Incident Date/Time UTC-0"]) + #duration(0, -6, 0, 0)
+else if [Time Zone] = "CDT"
+then DateTime.From([#"Incident Date/Time UTC-0"]) + #duration(0, -5, 0, 0)
+else if [Time Zone] = "EST"
+then DateTime.From([#"Incident Date/Time UTC-0"]) + #duration(0, -5, 0, 0)
+else if [Time Zone] = "EDT"
+then DateTime.From([#"Incident Date/Time UTC-0"]) + #duration(0, -4, 0, 0)
+else if [Time Zone] = "AST"
+then DateTime.From([#"Incident Date/Time UTC-0"]) + #duration(0, -4, 0, 0)
+else if [Time Zone] = "ADT"
+then DateTime.From([#"Incident Date/Time UTC-0"]) + #duration(0, -3, 0, 0)
+else if [Time Zone] = "NST"
+then DateTime.From([#"Incident Date/Time UTC-0"]) + #duration(0, -3, 30, 0)
+else if [Time Zone] = "NDT"
+then DateTime.From([#"Incident Date/Time UTC-0"]) + #duration(0, -2, 30, 0)
+else
+DateTime.From([#"Incident Date/Time UTC-0"]) + #duration(0, 0, 0, 0)
+
+Store Time of Day = Text.Combine({Number.ToText(Time.Hour(DateTime.Time([#"Store Date & Time"])))," HR"})
+
+Store Week Day Ranks = Date.DayOfWeek([#"Store Date & Time"])
+
+Store Week Day = Date.DayOfWeekName([#"Store Date & Time"])
+
+EST Time of Day = Text.Combine({Number.ToText(Time.Hour(DateTime.Time([EST])))," HR"})
+
+EST Week Day Ranks = Date.DayOfWeek([EST])
+
+EST Week Day = Date.DayOfWeekName([EST])
