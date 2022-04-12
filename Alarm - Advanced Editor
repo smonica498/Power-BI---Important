@@ -1,0 +1,49 @@
+let
+    Source = PostgreSQL.Database("amazon.com", "db"),
+    #"public_Alarm Event Current" = Source{[Schema="public",Item="Alarm Event Current"]}[Data],
+    #"Removed Other Columns" = Table.SelectColumns(#"public_Alarm Event Current",{"id", "name", "Date & Time", "Alarm Notes", "Alarm Details", "workflowState Label", "Type of Alarm Label", "Burglar Alarm Triggers (2) Label", "Trouble / Supervisory Trigger Label", "Alarm State Label", "Alarm Cause Label", "Police Label", "Security Guard Label", "Fire Department Label", "Management Label"}),
+    #"Renamed Columns" = Table.RenameColumns(#"Removed Other Columns",{{"name", "Name"}, {"Date & Time", "Date & Time UTC"}, {"workflowState Label", "State"}, {"Type of Alarm Label", "Type of Alarm"}, {"Burglar Alarm Triggers (2) Label", "Burglar Alarm Triggers"}, {"Trouble / Supervisory Trigger Label", "Trouble / Supervisory Trigger"}, {"Alarm State Label", "Alarm State"}, {"Alarm Cause Label", "Alarm Cause"}, {"Police Label", "Police"}, {"Security Guard Label", "Security Guard"}, {"Fire Department Label", "Fire Department"}, {"Management Label", "Management"}}),
+    #"Inserted First Characters: Store Number" = Table.AddColumn(#"Renamed Columns", "First Characters", each Text.Start([Name], 3), type text),
+    #"Renamed: Store Number" = Table.RenameColumns(#"Inserted First Characters: Store Number",{{"First Characters", "Store Number"}}),
+    #"Filtered Rows: Remove -AL, 204, 891, 894" = Table.SelectRows(#"Renamed: Store Number", each ([Store Number] <> "-AL" and [Store Number] <> "204" and [Store Number] <> "891" and [Store Number] <> "894")),
+    #"Added Custom: PST" = Table.AddColumn(#"Filtered Rows: Remove -AL, 204, 891, 894", "PST", each [#"Date & Time UTC"] - #duration(0, 8, 0, 0)),
+    #"Filtered Rows: FY23 filter in PST Date/Time" = Table.SelectRows(#"Added Custom: PST", each [PST] >= #datetime(2022, 1, 30, 0, 0, 0) and [PST] <= #datetime(2023, 1, 29, 3, 0, 0)),
+    #"Added Custom: EST" = Table.AddColumn(#"Filtered Rows: FY23 filter in PST Date/Time", "EST", each [#"Date & Time UTC"] - #duration(0, 5, 0, 0)),
+    #"Added Custom: Local Date Time" = Table.AddColumn(#"Added Custom: EST", "Local Date Time", each DateTimeZone.RemoveZone(DateTimeZone.ToLocal(DateTime.AddZone([#"Date & Time UTC"], 0)))),
+    #"Added Custom: Total Alarms" = Table.AddColumn(#"Added Custom: Local Date Time", "Total Alarms", each 1),
+    #"Changed Type" = Table.TransformColumnTypes(#"Added Custom: Total Alarms",{{"Total Alarms", Int64.Type}, {"Local Date Time", type datetime}, {"EST", type datetime}, {"PST", type datetime}, {"Store Number", Int64.Type}}),
+    #"Merged Queries: TimeZone" = Table.NestedJoin(#"Changed Type", {"Store Number"}, TimeZone, {"Store Number"}, "TimeZone", JoinKind.LeftOuter),
+    #"Expanded TimeZone" = Table.ExpandTableColumn(#"Merged Queries: TimeZone", "TimeZone", {"UTC Summer", "UTC Offset"}, {"UTC Summer", "UTC Offset"}),
+    #"Added Custom: Store Date & Time" = Table.AddColumn(#"Expanded TimeZone", "Store Date & Time", each if [UTC Offset] = 8
+then DateTime.From([#"Date & Time UTC"]) - #duration(0, 8, 0, 0)
+else if [UTC Offset] = 7
+then DateTime.From([#"Date & Time UTC"]) - #duration(0, 7, 0, 0)
+else if [UTC Offset] = 6
+then DateTime.From([#"Date & Time UTC"]) - #duration(0, 6, 0, 0)
+else if [UTC Offset] = 5
+then DateTime.From([#"Date & Time UTC"]) - #duration(0, 5, 0, 0)
+else if [UTC Offset] = 4
+then DateTime.From([#"Date & Time UTC"]) - #duration(0, 4, 0, 0)
+else if [UTC Offset] = 3.5
+then DateTime.From([#"Date & Time UTC"]) - #duration(0, 3, 30, 0)
+else
+DateTime.From([#"Date & Time UTC"]) + #duration(0, 0, 0, 0)),
+    #"Changed Type: UTC -> Duration, Store Date & Time -> Date/Time" = Table.TransformColumnTypes(#"Added Custom: Store Date & Time",{{"UTC Offset", type duration}, {"UTC Summer", type duration}, {"Store Date & Time", type datetime}}),
+    #"Added Custom: Store Time of Day" = Table.AddColumn(#"Changed Type: UTC -> Duration, Store Date & Time -> Date/Time", "Store Time of Day", each Text.Combine({Number.ToText(Time.Hour(DateTime.Time([#"Store Date & Time"])))," HR"})),
+    #"Column: Store Time Rank" = Table.AddColumn(#"Added Custom: Store Time of Day", "Store Time Rank", each Text.BeforeDelimiter([Store Time of Day], " "), type text),
+    #"Added Custom: Store Week Day Ranks" = Table.AddColumn(#"Column: Store Time Rank", "Store Week Day Ranks", each Date.DayOfWeek([#"Store Date & Time"])),
+    #"Added Custom: Store Week Day" = Table.AddColumn(#"Added Custom: Store Week Day Ranks", "Store Week Day", each Date.DayOfWeekName([#"Store Date & Time"])),
+    #"Added Custom: EST Time of Day" = Table.AddColumn(#"Added Custom: Store Week Day", "EST Time of Day", each Text.Combine({Number.ToText(Time.Hour(DateTime.Time([EST])))," HR"})),
+    #"Column: Time Rank" = Table.AddColumn(#"Added Custom: EST Time of Day", "EST Time Rank", each Text.BeforeDelimiter([EST Time of Day], " "), type text),
+    #"Added Custom: EST Week Day Ranks" = Table.AddColumn(#"Column: Time Rank", "EST Week Day Ranks", each Date.DayOfWeek([EST])),
+    #"Added Custom: EST Week Day" = Table.AddColumn(#"Added Custom: EST Week Day Ranks", "EST Week Day ", each Date.DayOfWeekName([EST])),
+    #"Changed Type1" = Table.TransformColumnTypes(#"Added Custom: EST Week Day",{{"EST Week Day ", type text}, {"EST Week Day Ranks", Int64.Type}, {"Store Week Day", type text}, {"Store Week Day Ranks", Int64.Type}, {"EST Time Rank", Int64.Type}, {"Store Time Rank", Int64.Type}}),
+    #"Duplicated Column: Store Date" = Table.DuplicateColumn(#"Changed Type1", "Store Date & Time", "Store Date & Time - Copy"),
+    #"Changed Type2: Date" = Table.TransformColumnTypes(#"Duplicated Column: Store Date",{{"Store Date & Time - Copy", type date}}),
+    #"Renamed Columns1: Store Date" = Table.RenameColumns(#"Changed Type2: Date",{{"Store Date & Time - Copy", "Store Date"}}),
+    #"Inserted Merged Column: Store Number + Date" = Table.AddColumn(#"Renamed Columns1: Store Date", "Store Number + Date", each Text.Combine({Text.From([Store Number], "en-US"), " - ", Text.From([Store Date], "en-US")}), type text),
+    #"Replaced Value: Burglar Alarm Triggers, Trouble/Superviosry Trigger -> null to No value" = Table.ReplaceValue(#"Inserted Merged Column: Store Number + Date",null,"No value",Replacer.ReplaceValue,{"Burglar Alarm Triggers", "Trouble / Supervisory Trigger"}),
+    #"Added Conditional Column" = Table.AddColumn(#"Replaced Value: Burglar Alarm Triggers, Trouble/Superviosry Trigger -> null to No value", "Trigger", each if [Burglar Alarm Triggers] = "No value" then [#"Trouble / Supervisory Trigger"] else [Burglar Alarm Triggers]),
+    #"Changed Type2" = Table.TransformColumnTypes(#"Added Conditional Column",{{"Trigger", type text}})
+in
+    #"Changed Type2"
