@@ -1,0 +1,12 @@
+WHEN WORKING WITH POSITIVE AND NEGATIVE NUMBERS AND WANT TO FIND THE VARIANCE
+
+
+% diff 30 days ago =
+IF (
+    X < 0
+        && Y < 0
+        && X < Y,
+    -1
+        * IFERROR ( X / Y, 0 ) + 1,
+    IFERROR ( X / Y, 0 ) - 1
+)
