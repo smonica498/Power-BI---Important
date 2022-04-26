@@ -10,3 +10,23 @@ IF (
         * IFERROR ( X / Y, 0 ) + 1,
     IFERROR ( X / Y, 0 ) - 1
 )
+
+
+
+FY23-22_CashVAR =
+VAR FY23 =
+    SUM ( 'F23 Cash Variance'[CASH VARIANCE] )
+VAR FY22 =
+    SUM ( 'F22 Cash Variance'[CASH VARIANCE] )
+VAR Diff =
+    SUM ( 'F23 Cash Variance'[CASH VARIANCE] )
+        - SUM ( 'F22 Cash Variance'[CASH VARIANCE] )
+RETURN
+    IF (
+        Diff < 0
+            && FY22 < 0
+            && FY23 - 22 < 22,
+        -1
+            * IFERROR ( Diff / FY22, 0 ) + 1,
+        IFERROR ( Diff / FY22, 0 ) - 1
+    )
