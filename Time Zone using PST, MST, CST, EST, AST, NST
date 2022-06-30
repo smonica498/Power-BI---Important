@@ -53,3 +53,67 @@ then DateTime.From([#"Incident Date/Time UTC-0"]) + #duration(0, -2, 30, 0)
 else
 
 DateTime.From([#"Date & Time UTC"]) + #duration(0, 0, 0, 0)
+
+
+
+
+
+
+
+
+
+
+
+Incident Date/Time (From ET to Other Time Zones) = 
+
+if [Time Zone] = "PST"
+
+then DateTime.From([#"Incident Date/Time ET"]) + #duration(0, -3, 0, 0)
+
+else if [Time Zone] = "PDT"
+
+then DateTime.From([#"Incident Date/Time ET"]) + #duration(0, -3, 0, 0)
+
+else if [Time Zone] = "MST"
+
+then DateTime.From([#"Incident Date/Time ET"]) + #duration(0, -2, 0, 0)
+
+else if [Time Zone] = "MDT"
+
+then DateTime.From([#"Incident Date/Time ET"]) + #duration(0, -2, 0, 0)
+
+else if [Time Zone] = "CST"
+
+then DateTime.From([#"Incident Date/Time ET"]) + #duration(0, -1, 0, 0)
+
+else if [Time Zone] = "CDT"
+
+then DateTime.From([#"Incident Date/Time ET"]) + #duration(0, -1, 0, 0)
+
+else if [Time Zone] = "EST"
+
+then DateTime.From([#"Incident Date/Time ET"]) + #duration(0, 0, 0, 0)
+
+else if [Time Zone] = "EDT"
+
+then DateTime.From([#"Incident Date/Time ET"]) + #duration(0, 0, 0, 0)
+
+else if [Time Zone] = "AST"
+
+then DateTime.From([#"Incident Date/Time ET"]) + #duration(0, 0, 0, 0)
+
+else if [Time Zone] = "ADT"
+
+then DateTime.From([#"Incident Date/Time ET"]) + #duration(0, 0, 0, 0)
+
+else if [Time Zone] = "NST"
+
+then DateTime.From([#"Incident Date/Time ET"]) + #duration(0, 1, 30, 0)
+
+else if [Time Zone] = "NDT"
+
+then DateTime.From([#"Incident Date/Time ET"]) + #duration(0, 1, 30, 0)
+
+else
+
+DateTime.From([#"Incident Date/Time ET"]) + #duration(0, 0, 0, 0)
